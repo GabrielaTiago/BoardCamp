@@ -2,7 +2,7 @@ import { connection } from "../databases/postgres.js";
 import { newCategorySchema } from "../schemas/newCategorySchema.js";
 
 async function newCategoryMiddleware(req, res, next) {
-  const name = req.body.name;
+  const { name } = req.body;
   const validation = newCategorySchema.validate(req.body, { abortEarly: true });
 
   if (validation.error) {
@@ -10,18 +10,18 @@ async function newCategoryMiddleware(req, res, next) {
   }
 
   try {
-    const { rows: validCategory } = await connection.query(
+    const validCategory = await connection.query(
       'SELECT * FROM categories WHERE name = $1',
       [name]
     );
 
-    if (!validCategory) return res.sendStatus(409);
+    if (validCategory.rowCount === 1) return res.sendStatus(409);
 
   } catch (error) {
     console.error(error);
     res.status(500).send("Bad Request");
   }
-  
+
   next();
 }
 
