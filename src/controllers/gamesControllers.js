@@ -11,9 +11,9 @@ async function getGames(req, res) {
         FROM games
         JOIN categories
         ON games."categoryId" = categories.id
-        WHERE LOWER(games.name) LIKE LOWER($1 || '%${name}%')
+        WHERE LOWER(games.name) LIKE LOWER ($1))
         `,
-        [name]
+        [`%${name}%`]
       );
       res.status(200).send(nameGames);
     } else {
@@ -33,13 +33,13 @@ async function getGames(req, res) {
 }
 
 async function newGame(req, res) {
-  const { name, image, stockTotal, categoryId, pricePerDay } = req.body;
+  const { name, image, categoryId, stockTotal, pricePerDay } = req.body;
 
   try {
     await connection.query(
-      `INSERT INTO games (name, image, "stockTotal", "categoryId", "pricePerDay")
+      `INSERT INTO games (name, image, "categoryId", "stockTotal", "pricePerDay")
         VALUES ($1, $2, $3, $4, $5)`,
-      [name, image, stockTotal, categoryId, pricePerDay]
+      [name, image, categoryId, stockTotal, pricePerDay]
     );
     res.sendStatus(201);
   } catch (error) {
