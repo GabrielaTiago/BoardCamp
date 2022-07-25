@@ -16,8 +16,20 @@ async function getCategories(req, res) {
 async function newCategory(req, res) {
   const { name } = req.body;
 
+
+  
   try {
-    await connection.query('INSERT INTO categories (name) VALUES ($1)', [name]);
+    const validCategory = await connection.query(
+      'SELECT * FROM categories WHERE name = $1',
+      [name]
+    );
+  
+    if (validCategory.rowCount === 1) return res.sendStatus(409);
+
+    await connection.query(
+      'INSERT INTO categories (name) VALUES ($1)',
+      [name]);
+      
     res.sendStatus(201);
   } catch (error) {
     console.error(error);
