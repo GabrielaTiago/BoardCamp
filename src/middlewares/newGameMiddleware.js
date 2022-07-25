@@ -10,19 +10,19 @@ async function newGameMiddleware(req, res, next) {
   }
 
   try {
-    const { rows: validCategory } = await connection.query(
+    const validCategory = await connection.query(
       `SELECT * FROM categories WHERE id = $1`,
       [categoryId]
     );
 
-    if(!validCategory) return res.sendStatus(400);
+    if(validCategory.rowCount === 0) return res.sendStatus(400);
 
-    const { rows: validGame } = await connection.query(
+    const validGame  = await connection.query(
       `SELECT * FROM games WHERE name = $1`,
       [name]
     );
     
-    if (!validGame) return res.sendStatus(409);
+    if (validGame.rowCount === 1) return res.sendStatus(409);
 
   } catch (error) {
     console.error(error);
