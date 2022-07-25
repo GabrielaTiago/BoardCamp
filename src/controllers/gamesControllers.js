@@ -1,5 +1,6 @@
 import { connection } from "../databases/postgres.js";
 
+
 async function getGames(req, res) {
   let name = req.query.name;
 
