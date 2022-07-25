@@ -22,8 +22,8 @@ async function getGames(req, res) {
         JOIN categories
         ON games."categoryId" = categories.id
         `
-     );
-     res.status(200).send(allGames);
+      );
+      res.status(200).send(allGames);
     }
   } catch (error) {
     console.error(error);
@@ -31,4 +31,20 @@ async function getGames(req, res) {
   }
 }
 
-export { getGames };
+async function newGame(req, res) {
+  const { name, image, stockTotal, categoryId, pricePerDay } = req.body;
+
+  try {
+    await connection.query(
+      `INSERT INTO games (name, image, "stockTotal", "categoryId", "pricePerDay")
+        VALUES ($1, $2, $3, $4, $5)`,
+      [name, image, stockTotal, categoryId, pricePerDay]
+    );
+    res.sendStatus(201);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Bad request");
+  }
+}
+
+export { getGames, newGame };
