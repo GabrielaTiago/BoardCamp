@@ -1,4 +1,4 @@
-import { newCustomerSchema } from "../schemas/newCustomer.js";
+import { newCustomerSchema } from "../schemas/newCustomerSchema.js";
 
 async function newCustomerMiddleware(req, res, next) {
 
