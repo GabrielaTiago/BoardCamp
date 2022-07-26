@@ -12,10 +12,12 @@ async function getCustomers(req, res) {
       whereClause += `WHERE cpf ILIKE $${params.length}`;
     }
 
-    const { rows: allCustomers } = await connection.query(
+    const { rows: allCustomers, rowCount} = await connection.query(
       `SELECT * FROM customers ${whereClause}`,
       params
     );
+
+    if (rowCount === 0) return res.sendStatus(404);
 
     res.status(200).send(allCustomers);
   } catch (error) {
