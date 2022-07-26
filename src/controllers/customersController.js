@@ -40,8 +40,10 @@ async function getCustomerByID(req, res) {
   res.status(200).send(customers);
 }
 
-async function createCustomer(req, res) {}
+async function newCustomer(req, res) {
+
+}
 
 async function updateCustomers(req, res) {}
 
-export { getCustomers, getCustomerByID, createCustomer, updateCustomers };
+export { getCustomers, getCustomerByID, newCustomer, updateCustomers };

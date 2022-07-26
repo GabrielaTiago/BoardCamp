@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  createCustomer,
+  newCustomer,
   getCustomerByID,
   getCustomers,
   updateCustomers,
@@ -10,7 +10,7 @@ const customersRoutes = Router();
 
 customersRoutes.get("/customers", getCustomers);
 customersRoutes.get("/customers/:id", getCustomerByID);
-customersRoutes.post("/customers", createCustomer);
+customersRoutes.post("/customers", newCustomer);
 customersRoutes.put("/customers", updateCustomers);
 
 export { customersRoutes };
