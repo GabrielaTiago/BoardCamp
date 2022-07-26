@@ -9,7 +9,7 @@ import {
 const customersRoutes = Router();
 
 customersRoutes.get("/customers", getCustomers);
-customersRoutes.get("/customers", getCustomerByID);
+customersRoutes.get("/customers/:id", getCustomerByID);
 customersRoutes.post("/customers", createCustomer);
 customersRoutes.put("/customers", updateCustomers);
 
