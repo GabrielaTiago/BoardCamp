@@ -12,6 +12,6 @@ const customersRoutes = Router();
 customersRoutes.get("/customers", getCustomers);
 customersRoutes.get("/customers/:id", getCustomerByID);
 customersRoutes.post("/customers", newCustomerMiddleware, newCustomer);
-customersRoutes.put("/customers", updateCustomers);
+customersRoutes.put("/customers/:id", newCustomerMiddleware,updateCustomers);
 
 export { customersRoutes };

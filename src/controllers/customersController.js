@@ -62,6 +62,29 @@ async function newCustomer(req, res) {
   }
 }
 
-async function updateCustomers(req, res) {}
+async function updateCustomers(req, res) {
+  const { id } = req.params;
+  const { name, phone, cpf, birthday } = req.body;
+
+  try {
+    const { rowCount } = await connection.query(
+      `SELECT * FROM customers WHERE cpf = $1 AND id <> $2`,
+      [cpf, id]
+    );
+
+    if (rowCount === 1) return res.sendStatus(409);
+
+    await connection.query(
+      `UPDATE customers 
+      SET (name, phone, cpf, birthday) = ($1, $2, $3, $4)
+      WHERE id = $5`,
+      [name, phone, cpf, birthday, id]
+    );
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Bad Request");
+  }
+}
 
 export { getCustomers, getCustomerByID, newCustomer, updateCustomers };
