@@ -34,9 +34,8 @@ async function getCustomerByID(req, res) {
     [id]
   );
 
-  if (rowCount === 0) {
-    return res.sendStatus(404);
-  }
+  if (rowCount === 0) return res.sendStatus(404);
+
 
   res.status(200).send(customers);
 }
