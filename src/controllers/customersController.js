@@ -44,8 +44,8 @@ async function newCustomer(req, res) {
 
   try {
     const { rowCount } = await connection.query(
-      `SELECT * FROM customers WHERE name = $1`,
-      [name]
+      `SELECT * FROM customers WHERE cpf = $1`,
+      [cpf]
     );
 
     if (rowCount === 1) return res.sendStatus(409);
