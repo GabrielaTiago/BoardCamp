@@ -1,11 +1,12 @@
-import newCategorySchema from "./newCategorySchema.js";
-import newCustomerSchema from "./newCustomerSchema.js";
-import newGameSchema from "./newGameSchema.js";
+import categoriesSchemas from './categoriesSchemas.js';
+import newCustomerSchema from './newCustomerSchema.js';
+import newGameSchema from './newGameSchema.js';
 
 const schemas = {
-    "category": newCategorySchema,
-    "customer": newCustomerSchema,
-    "game": newGameSchema,
-}
+	category: categoriesSchemas.newCategorySchema,
+	categoryUpdate: categoriesSchemas.updateCategorySchema,
+	customer: newCustomerSchema,
+	game: newGameSchema,
+};
 
 export default schemas;
