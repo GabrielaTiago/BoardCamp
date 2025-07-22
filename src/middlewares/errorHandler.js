@@ -5,11 +5,11 @@ function errorHandler(error, req, res, next) {
 	const statusCode = ERRORS[type];
 
 	if (statusCode) {
-		res.status(statusCode).send(message);
+		return res.status(statusCode).send(message);
 	}
 
 	console.error(error);
-	res.status(ERRORS.internal_server_error).status('Internal Server Error');
+	res.status(ERRORS.internal_server_error).send('Internal Server Error');
 }
 
 export default errorHandler;
