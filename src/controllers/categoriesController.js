@@ -1,39 +1,26 @@
-import { connection } from "../databases/postgres.js";
+import categoriesServices from '../services/categoriesServices.js';
 
-async function getCategories(req, res) {
-  try {
-    const { rows: allCategories } = await connection.query(
-      'SELECT * FROM categories'
-    );
-
-    if (allCategories) res.status(200).send(allCategories);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Bad request");
-  }
+async function getCategoriesController(_, res) {
+	const allCategories = await categoriesServices.getCategories();
+	res.status(200).send(allCategories);
 }
 
-async function newCategory(req, res) {
-  const { name } = req.body;
-
-
-  
-  try {
-    const validCategory = await connection.query(
-      'SELECT * FROM categories WHERE name = $1',
-      [name]
-    );
-  
-    if (validCategory.rowCount === 1) return res.sendStatus(409);
-
-    await connection.query(
-      'INSERT INTO categories (name) VALUES ($1)',
-      [name]);
-      
-    res.sendStatus(201);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Bad request");
-  }
+async function createCategoryController(req, res) {
+	const { name } = req.body;
+	await categoriesServices.createCategory(name);
+	res.status(201).send('Category created successfully');
 }
-export { getCategories, newCategory };
+
+async function updateCategoryController(req, res) {
+	const { name, newName } = req.body;
+	await categoriesServices.updateCategory(name, newName);
+	res.status(200).send('Category updated successfully');
+}
+
+async function deleteCategoryController(req, res) {
+	const { name } = req.params;
+	await categoriesServices.deleteCategory(name);
+	res.status(200).send('Category deleted successfully');
+}
+
+export { getCategoriesController, createCategoryController, updateCategoryController, deleteCategoryController };
