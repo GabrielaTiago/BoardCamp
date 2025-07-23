@@ -28,6 +28,15 @@ async function getGameByName(name) {
 	return games;
 }
 
+async function getGameById(gameId) {
+	const game = await gamesRepositories.getGameById(gameId);
+	if (!game || game.length === 0) {
+		const error = { type: 'not_found', message: `Game with ID ${gameId} not found` };
+		throw error;
+	}
+	return game;
+}
+
 async function createGame(name, image, categoryId, stockTotal, pricePerDay) {
 	const existingGame = await gamesRepositories.getGameByName(name);
 	if (existingGame.length > 0) {
@@ -58,6 +67,7 @@ async function deleteGame(gameId) {
 const gamesServices = {
 	getGames,
 	getGameByName,
+	getGameById,
 	createGame,
 	updateGame,
 	deleteGame,
