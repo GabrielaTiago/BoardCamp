@@ -1,5 +1,7 @@
 FROM node:18
 
+ARG PORT=4000
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -7,8 +9,8 @@ RUN npm install
 
 COPY . .
 
-RUN chmod +x ./database-boardcamp/create-database
+# RUN chmod +x ./database-boardcamp/create-database
 
-EXPOSE 4000
+EXPOSE ${PORT}
 
 CMD ["npm", "run", "dev"]
