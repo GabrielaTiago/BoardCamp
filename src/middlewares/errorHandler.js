@@ -5,7 +5,7 @@ function errorHandler(error, req, res, next) {
 	const statusCode = ERRORS[type];
 
 	if (statusCode) {
-		return res.status(statusCode).send(message);
+		return res.status(statusCode).send({ message });
 	}
 
 	console.error(error);
