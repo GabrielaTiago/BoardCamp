@@ -12,14 +12,15 @@ async function createCategoryController(req, res) {
 }
 
 async function updateCategoryController(req, res) {
-	const { name, newName } = req.body;
-	await categoriesServices.updateCategory(name, newName);
+	const { id } = req.params;
+	const { name } = req.body;
+	await categoriesServices.updateCategory(name, Number(id));
 	res.status(200).send('Category updated successfully');
 }
 
 async function deleteCategoryController(req, res) {
-	const { name } = req.params;
-	await categoriesServices.deleteCategory(name);
+	const { id } = req.params;
+	await categoriesServices.deleteCategory(Number(id));
 	res.status(200).send('Category deleted successfully');
 }
 

@@ -12,7 +12,7 @@ const categoriesRouter = Router();
 
 categoriesRouter.get('/categories', getCategoriesController);
 categoriesRouter.post('/categories', validateSchema('category'), createCategoryController);
-categoriesRouter.put('/categories', validateSchema('categoryUpdate'), updateCategoryController);
-categoriesRouter.delete('/categories/:name', deleteCategoryController);
+categoriesRouter.put('/categories/:id', validateSchema('category'), updateCategoryController);
+categoriesRouter.delete('/categories/:id', deleteCategoryController);
 
 export default categoriesRouter;

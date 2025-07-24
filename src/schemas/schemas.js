@@ -5,7 +5,6 @@ import rentalSchema from './rentalsSchemas.js';
 
 const schemas = {
 	category: categoriesSchemas.newCategorySchema,
-	categoryUpdate: categoriesSchemas.updateCategorySchema,
 	customer: newCustomerSchema,
 	game: newGameSchema,
 	rental: rentalSchema,

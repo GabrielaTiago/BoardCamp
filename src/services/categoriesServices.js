@@ -10,30 +10,37 @@ async function getCategories() {
 }
 
 async function createCategory(name) {
-	const existingCategory = await categoriesRepositories.getCategoryByName(name);
-	if (existingCategory.rowCount > 0) {
-		const error = { type: 'conflict', message: 'Category already exists' };
-		throw error;
-	}
+	await checksTheNameAlreadyExists(name);
 	await categoriesRepositories.createCategory(name);
 }
 
-async function updateCategory(oldName, newName) {
-	await checksTheExistenceOfTheCategory(oldName);
-	await categoriesRepositories.updateCategory(oldName, newName);
+async function updateCategory(name, id) {
+	await checkTheCategoryExistence(id);
+	await checksTheNameAlreadyExists(name);
+	await categoriesRepositories.updateCategory(name, id);
 }
 
-async function deleteCategory(name) {
-	await checksTheExistenceOfTheCategory(name);
-	await categoriesRepositories.deleteCategory(name);
+async function deleteCategory(id) {
+	await checkTheCategoryExistence(id);
+	await categoriesRepositories.deleteCategory(id);
 }
 
-async function checksTheExistenceOfTheCategory(name) {
-	const existingCategory = await categoriesRepositories.getCategoryByName(name);
-	if (existingCategory.rowCount === 0) {
+async function checkTheCategoryExistence(id) {
+	const category = await categoriesRepositories.getCategorieById(id);
+	if (category.rowCount === 0) {
 		const error = { type: 'not_found', message: 'Category not found' };
 		throw error;
 	}
+	return category.rows[0];
+}
+
+async function checksTheNameAlreadyExists(name) {
+	const category = await categoriesRepositories.getCategoryByName(name);
+	if (category.rowCount > 0) {
+		const error = { type: 'conflict', message: `Category name '${name}' already exists` };
+		throw error;
+	}
+	return category.rows[0];
 }
 
 const categoriesServices = {
