@@ -23,8 +23,8 @@ async function updateCategory(newName, categoryId) {
 	await connection.query('UPDATE categories SET name = $1 WHERE id = $2', [newName, categoryId]);
 }
 
-async function deleteCategory(name) {
-	await connection.query('DELETE FROM categories WHERE name = $1', [name]);
+async function deleteCategory(categoryId) {
+	await connection.query('DELETE FROM categories WHERE id = $1', [categoryId]);
 }
 
 const categoriesRepositories = {
