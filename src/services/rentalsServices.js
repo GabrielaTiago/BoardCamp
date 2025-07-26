@@ -3,12 +3,12 @@ import gamesServices from './gamesServices.js';
 import rentalsRepositories from '../repositories/rentalsRepositories.js';
 
 async function getRentals(customerId, gameId) {
-	let rentals;
+	let rentals = [];
 	if (customerId && gameId) {
 		// If both customerId and gameId are provided, filter rentals by both
 		await customersServices.getCustomerByID(customerId);
 		await gamesServices.getGameById(gameId);
-		rentals = await rentalsRepositories.getRentalsByCustomerAndGame(customerId, game);
+		rentals = await rentalsRepositories.getRentalsByCustomerAndGame(customerId, gameId);
 	} else if (customerId && !gameId) {
 		// If only customerId is provided, filter rentals by customer
 		await customersServices.getCustomerByID(customerId);
