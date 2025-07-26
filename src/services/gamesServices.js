@@ -3,11 +3,7 @@ import gamesRepositories from '../repositories/gamesRepositories.js';
 async function getGames(name) {
 	// If a name is provided, search for games by that name
 	if (name) {
-		const games = await gamesRepositories.getGameByName(name);
-		if (!games || games.length === 0) {
-			const error = { type: 'not_found', message: `No games found with the name: ${name}` };
-			throw error;
-		}
+		const games = await getGameByName(name);
 		return games;
 	}
 	// If no name is provided, return all games
