@@ -4,7 +4,7 @@ import customersRouter from './customersRouter.js';
 import gamesRouter from './gamesRouter.js';
 import rentalsRouter from './rentalsRouter.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../../swagger.json' assert { type: 'json' };
+import swaggerDocument from '../../swagger.json' with { type: 'json' };
 
 const router = Router();
 
