@@ -48,6 +48,7 @@ async function updateGame(gameId, name, image, categoryId, stockTotal, pricePerD
 		const error = { type: 'conflict', message: 'Game with this name already exists' };
 		throw error;
 	}
+	await getGameById(gameId);
 	await gamesRepositories.updateGame(gameId, name, image, categoryId, stockTotal, pricePerDay);
 }
 
