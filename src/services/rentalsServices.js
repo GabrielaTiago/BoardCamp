@@ -69,7 +69,7 @@ async function checkRentalExists(rentalId) {
 		const error = { type: 'not_found', message: 'Rental not found' };
 		throw error;
 	}
-	return rental;
+	return rental[0];
 }
 
 function calculateDelayFee(rental) {
@@ -87,8 +87,12 @@ function calculateDelayFee(rental) {
 }
 
 function diffDays(date1, date2) {
-	const diffInMs = Math.abs(date2.getTime() - date1.getTime());
-	return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+	const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+	const utc1 = Date.UTC(date1.getUTCFullYear(), date1.getUTCMonth(), date1.getUTCDate());
+	const utc2 = Date.UTC(date2.getUTCFullYear(), date2.getUTCMonth(), date2.getUTCDate());
+
+	return Math.floor((utc2 - utc1) / MS_PER_DAY);
 }
 
 function _mapRentalsArrayToObject(rental) {
