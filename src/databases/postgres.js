@@ -41,6 +41,8 @@ const testConnection = async () => {
 	}
 };
 
-testConnection();
+if (process.env.NODE_ENV !== 'test') {
+	testConnection();
+}
 
 export { connection };
