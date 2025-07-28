@@ -12,8 +12,8 @@
     "docker:destroy": "docker-compose down -v --rmi all",
     "docker:test": "docker-compose run --rm boardcamp-api npm test",
     "docker:test:watch": "docker-compose run --rm boardcamp-api npm run test:watch",
-    "test": "jest",
-    "test:watch": "jest --coverage --watchAll"
+    "test": "jest --coverage --verbose",
+    "test:watch": "jest --coverage --verbose --watchAll"
   },
   "keywords": [],
   "author": "",
