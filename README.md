@@ -118,11 +118,27 @@ Para remover os containers, volumes e imagens criadas, realizando assim o resete
 
 ## :world_map: Rotas
 
-A aplicação estará disponível em: `<http://localhost:4000>`
+A aplicação estará disponível em: `http://localhost:4000`
 
 Para acessar a documentação, implementada com **swagger**, acesse a rota: [**/documentation**](http://localhost:4000/documentation)
 
 ![routes](assets/routes.png)
+
+## :test_tube: Testes
+
+Para executar os testes, você pode utilizar o comando:
+
+```bash
+    npm test
+```
+
+Ou com docker:
+
+```bash
+    npm run docker:test
+```
+
+Os testes estão localizados na pasta `src/services/tests` e são organizados em arquivos separados para cada funcionalidade da API, como `categories.test.js`, `games.test.js`, `customers.test.js` e `rentals.test.js`.
 
 ## :bulb: Reconhecimentos
 
